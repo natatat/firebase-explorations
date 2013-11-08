@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  </head>
+  <body>
+    <form>
+      <input type='text' id='nameInput' placeholder='Name'>
+      <input type='text' id='messageInput' placeholder='Message'>
+    </form>
+    <br/><br/>
+    <form class="wait">
+      <input type='text' id='wait-time' placeholder='wait time'>
+      <button>ok</button>
+    </form>
+    <br/>
+    <div class="countdown"></div>
+    <script>
+
+      var myDataRef = new Firebase('https://h5pqa0j8rm2.firebaseio-demo.com/');
+
+      $('#messageInput').keypress(function (e) {
+        if (e.keyCode === 13) {
+          var name = $('#nameInput').val();
+          var text = $('#messageInput').val();
+          myDataRef.push({ name: name, text: text });
+          $('#messageInput').val('');
+        }
+      });
+
+      myDataRef.on('child_added', function(snapshot){
+
+      });
+
+      function minutes() {
+        var date = new Date();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        $(".countdown").html(minutes + ", " + seconds);
+      };
+
+      $(function(){
+        var interval = setInterval(function(){ minutes() }, 1000);
+      });
+
+    </script>
+  </body>
+</html>
