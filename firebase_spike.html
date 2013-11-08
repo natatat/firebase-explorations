@@ -7,17 +7,7 @@
     <form>
       <input type='text' id='nameInput' placeholder='Name'>
       <input type='text' id='messageInput' placeholder='Message'>
-      <input type="submit" value="Submit" disabled>
     </form>
-    <br/><br/>
-    <form class="wait">
-      <input type='text' id='wait-time' placeholder='wait time'>
-      <a href="#" class="do-it">ok</a>
-    </form>
-    <br/>
-    <div class="minutes"></div>
-    <div class="wait-time"></div>
-    <div class="done"></div>
     <script>
 
       var myDataRef = new Firebase('https://h5pqa0j8rm2.firebaseio-demo.com/');
@@ -33,37 +23,6 @@
 
       myDataRef.on('child_added', function(snapshot){
 
-      });
-
-      function initialWaitTime() {
-        waitTime = $("#wait-time").val();
-        $(".wait-time").html(waitTime);
-      }
-
-      function minutes() {
-        var date = new Date();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        $(".minutes").html(minutes + ", " + seconds);
-      };
-
-      function timeToWait() {
-        if (waitTime > 0) {
-          waitTime = waitTime - 1;
-          $(".wait-time").html(waitTime);
-        } else {
-          clearInterval(interval);
-          $(".done").html("time's up!")
-        }
-      }
-
-      function startIntervalFunction() {
-        initialWaitTime();
-        interval = setInterval(function(){ timeToWait() }, 60000);
-      }
-
-      $(function(){
-        $(".do-it").on("click", startIntervalFunction);
       });
 
     </script>
